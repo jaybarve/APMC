@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <title>शेतकरी बिल</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="margin:0; font-family:Arial; background:#f4f6f8;">
+
+<div style="background:#2e7d32; color:white; padding:16px; text-align:center; font-size:22px;">
+  शेतकरी बिल
+</div>
+
+<div id="bill" style="padding:15px;"></div>
+
+<script src="data.js"></script>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const traderId = parseInt(params.get("tid"));
+const farmerId = parseInt(params.get("fid"));
+
+const trader = kandaDatabase.find(t => t.traderId === traderId);
+const farmer = trader.farmers.find(f => f.farmerId === farmerId);
+
+const total = farmer.bill.quantity * farmer.bill.rate;
+const netAmount = total - farmer.bill.commission;
+
+document.getElementById("bill").innerHTML = `
+  <div style="background:white; padding:18px; border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+
+    <h3 style="text-align:center;">कृषी उत्पन्न बाजार समिती सोलापूर</h3>
+    <hr>
+
+    <p><b>शेतकरी नाव:</b> ${farmer.name}</p>
+    <p><b>गाव:</b> ${farmer.village}</p>
+    <p><b>पीक:</b> ${farmer.bill.crop}</p>
+
+    <hr>
+
+    <p><b>माल प्रमाण:</b> ${farmer.bill.quantity} क्विंटल</p>
+    <p><b>दर:</b> ₹ ${farmer.bill.rate}</p>
+    <p><b>एकूण रक्कम:</b> ₹ ${total}</p>
+    <p><b>कमिशन:</b> ₹ ${farmer.bill.commission}</p>
+
+    <hr>
+
+    <h3 style="text-align:right;">नेट रक्कम: ₹ ${netAmount}</h3>
+  </div>
+`;
+</script>
+
+</body>
+</html>
