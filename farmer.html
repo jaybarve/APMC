@@ -5,53 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="margin:0; font-family:Arial; background:#f4f6f8;">
+<body style="margin:0; font-family:Arial, sans-serif; background:#f4f6f8;">
 
 <!-- Header -->
-<div style="background:#2e7d32; color:white; padding:16px; text-align:center; font-size:22px;">
+<div style="
+  background:#2e7d32;
+  color:white;
+  padding:16px;
+  text-align:center;
+  font-size:22px;
+">
   शेतकरी तपशील
 </div>
 
-<!-- Content -->
-<div id="content" style="padding:15px;"></div>
+<!-- Table Section -->
+<div style="padding:15px;">
+  <div style="
+    background:white;
+    border-radius:12px;
+    padding:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    overflow-x:auto;
+  ">
+
+    <table style="width:100%; border-collapse:collapse; min-width:900px;">
+      <thead>
+        <tr style="background:#f0f0f0;">
+          <th style="padding:10px;">अनु.क्र</th>
+          <th style="padding:10px;">शेतकरी नाव</th>
+          <th style="padding:10px;">एकूण पॅकिट</th>
+          <th style="padding:10px;">वक्कल नं</th>
+          <th style="padding:10px;">वजन</th>
+          <th style="padding:10px;">दर</th>
+          <th style="padding:10px;">खरेदीदार नाव</th>
+          <th style="padding:10px;">खरेदीदार दर</th>
+        </tr>
+      </thead>
+
+      <tbody id="farmerTable">
+        <!-- Auto generated rows -->
+      </tbody>
+    </table>
+
+  </div>
+</div>
 
 <!-- DATABASE -->
 <script src="data.js"></script>
 
+<!-- PAGE LOGIC -->
 <script>
 const params = new URLSearchParams(window.location.search);
 const traderId = parseInt(params.get("id"));
+
 const trader = kandaDatabase.find(t => t.traderId === traderId);
+const table = document.getElementById("farmerTable");
 
-const content = document.getElementById("content");
-
-let html = `
-  <div style="background:white; padding:15px; border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15); margin-bottom:15px;">
-    <h3>व्यापारी: ${trader.traderName}</h3>
-    <p>एकूण माल: ${trader.quantity}</p>
-  </div>
-
-  <h3>शेतकरी यादी</h3>
-`;
-
-trader.farmers.forEach((farmer, index) => {
-  html += `
-    <div style="background:white; padding:12px; border-radius:10px;
-      margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-      
-      <b>${index + 1}. ${farmer.name}</b><br><br>
-
-      <a href="bill.html?tid=${trader.traderId}&fid=${farmer.farmerId}"
-        style="background:#2e7d32; color:white; padding:6px 14px;
-        border-radius:6px; text-decoration:none;">
-        Bill पहा
-      </a>
-    </div>
+trader.farmers.forEach((f, index) => {
+  table.innerHTML += `
+    <tr>
+      <td style="padding:10px; text-align:center;">${index + 1}</td>
+      <td style="padding:10px;">${f.farmerName}</td>
+      <td style="padding:10px; text-align:center;">${f.totalPacket}</td>
+      <td style="padding:10px; text-align:center;">${f.vakkalNo}</td>
+      <td style="padding:10px; text-align:center;">${f.weight}</td>
+      <td style="padding:10px; text-align:center;">${f.rate}</td>
+      <td style="padding:10px;">${f.buyerName}</td>
+      <td style="padding:10px; text-align:center;">${f.buyerRate}</td>
+    </tr>
   `;
 });
-
-content.innerHTML = html;
 </script>
 
 </body>
