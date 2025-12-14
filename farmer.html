@@ -5,15 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="margin:0; font-family:Arial; background:#f4f6f8;">
+<body style="margin:0; font-family:Arial, sans-serif; background:#f4f6f8;">
 
-<div style="background:#2e7d32; color:white; padding:16px; text-align:center; font-size:22px;">
+<!-- HEADER -->
+<div style="
+  background:#2e7d32;
+  color:white;
+  padding:16px;
+  text-align:center;
+  font-size:22px;
+">
   शेतकरी तपशील
 </div>
 
+<!-- TABLE -->
 <div style="padding:15px;">
-  <div style="background:white; padding:10px; border-radius:12px;
-       box-shadow:0 4px 12px rgba(0,0,0,0.15); overflow-x:auto;">
+  <div style="
+    background:white;
+    border-radius:12px;
+    padding:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    overflow-x:auto;
+  ">
 
     <table style="width:100%; border-collapse:collapse; min-width:900px;">
       <thead>
@@ -31,32 +44,48 @@
       <tbody id="farmerTable"></tbody>
     </table>
 
-    <p id="errorMsg" style="color:red; display:none; text-align:center;">
+    <!-- ERROR MESSAGE -->
+    <p id="errorMsg" style="
+      display:none;
+      color:red;
+      text-align:center;
+      margin-top:10px;
+    ">
       माहिती सापडली नाही
     </p>
 
   </div>
 </div>
 
-<!-- DATABASE -->
+<!-- ================= STEP 5 IMPORTANT PART ================= -->
+
+<!-- 1️⃣ LOAD DATABASE FIRST -->
 <script src="data.js"></script>
 
+<!-- 2️⃣ PAGE LOGIC AFTER DATABASE -->
 <script>
+console.log("Testing data.js load:", window.kandaDatabase);
+
 const params = new URLSearchParams(window.location.search);
 const traderId = Number(params.get("id"));
 
 const table = document.getElementById("farmerTable");
 const errorMsg = document.getElementById("errorMsg");
 
-if (!window.kandaDatabase) {
-  errorMsg.innerText = "data.js लोड होत नाही";
+/* CHECK DATABASE */
+if (typeof kandaDatabase === "undefined") {
+  errorMsg.innerText = "❌ data.js load होत नाही";
   errorMsg.style.display = "block";
 } else {
+  console.log("✅ data.js loaded successfully");
+
   const trader = kandaDatabase.find(t => t.traderId === traderId);
 
   if (!trader) {
+    errorMsg.innerText = "❌ Trader सापडला नाही";
     errorMsg.style.display = "block";
   } else {
+
     trader.farmers.forEach(farmer => {
       const count = farmer.records.length;
 
@@ -92,6 +121,7 @@ if (!window.kandaDatabase) {
         </tr>
       `;
     });
+
   }
 }
 </script>
