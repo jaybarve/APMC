@@ -18,7 +18,7 @@
   शेतकरी तपशील
 </div>
 
-<!-- Table Section -->
+<!-- Table -->
 <div style="padding:15px;">
   <div style="
     background:white;
@@ -28,23 +28,21 @@
     overflow-x:auto;
   ">
 
-    <table style="width:100%; border-collapse:collapse; min-width:900px;">
+    <table style="width:100%; border-collapse:collapse; min-width:950px;">
       <thead>
         <tr style="background:#f0f0f0;">
-          <th style="padding:10px;">अनु.क्र</th>
-          <th style="padding:10px;">शेतकरी नाव</th>
-          <th style="padding:10px;">एकूण पॅकिट</th>
-          <th style="padding:10px;">वक्कल नं</th>
-          <th style="padding:10px;">वजन</th>
-          <th style="padding:10px;">दर</th>
-          <th style="padding:10px;">खरेदीदार नाव</th>
-          <th style="padding:10px;">खरेदीदार दर</th>
+          <th>अनु.क्र</th>
+          <th>शेतकरी नाव</th>
+          <th>एकूण पॅकिट</th>
+          <th>वक्कल नं</th>
+          <th>वजन</th>
+          <th>दर</th>
+          <th>खरेदीदार नाव</th>
+          <th>खरेदीदार दर</th>
         </tr>
       </thead>
 
-      <tbody id="farmerTable">
-        <!-- Auto generated rows -->
-      </tbody>
+      <tbody id="farmerTable"></tbody>
     </table>
 
   </div>
@@ -53,7 +51,6 @@
 <!-- DATABASE -->
 <script src="data.js"></script>
 
-<!-- PAGE LOGIC -->
 <script>
 const params = new URLSearchParams(window.location.search);
 const traderId = parseInt(params.get("id"));
@@ -61,19 +58,23 @@ const traderId = parseInt(params.get("id"));
 const trader = kandaDatabase.find(t => t.traderId === traderId);
 const table = document.getElementById("farmerTable");
 
-trader.farmers.forEach((f, index) => {
-  table.innerHTML += `
-    <tr>
-      <td style="padding:10px; text-align:center;">${index + 1}</td>
-      <td style="padding:10px;">${f.farmerName}</td>
-      <td style="padding:10px; text-align:center;">${f.totalPacket}</td>
-      <td style="padding:10px; text-align:center;">${f.vakkalNo}</td>
-      <td style="padding:10px; text-align:center;">${f.weight}</td>
-      <td style="padding:10px; text-align:center;">${f.rate}</td>
-      <td style="padding:10px;">${f.buyerName}</td>
-      <td style="padding:10px; text-align:center;">${f.buyerRate}</td>
-    </tr>
-  `;
+let srNo = 1;
+
+trader.farmers.forEach(farmer => {
+  farmer.entries.forEach(entry => {
+    table.innerHTML += `
+      <tr>
+        <td style="padding:10px; text-align:center;">${srNo++}</td>
+        <td style="padding:10px;">${farmer.farmerName}</td>
+        <td style="padding:10px; text-align:center;">${entry.totalPacket}</td>
+        <td style="padding:10px; text-align:center;">${entry.vakkalNo}</td>
+        <td style="padding:10px; text-align:center;">${entry.weight}</td>
+        <td style="padding:10px; text-align:center;">${entry.rate}</td>
+        <td style="padding:10px;">${entry.buyerName}</td>
+        <td style="padding:10px; text-align:center;">${entry.buyerRate}</td>
+      </tr>
+    `;
+  });
 });
 </script>
 
