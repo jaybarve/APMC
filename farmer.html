@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <title>शेतकरी माहिती</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="font-family:Arial; background:#f4f6f8; margin:0;">
+
+<h2 style="background:#2e7d32; color:white; padding:15px; text-align:center;">
+  शेतकरी तपशील
+</h2>
+
+<div id="content" style="padding:15px;"></div>
+
+<!-- DATABASE -->
+<script src="data.js"></script>
+
+<script>
+// Get traderId from URL
+const params = new URLSearchParams(window.location.search);
+const traderId = parseInt(params.get("id"));
+
+// Find trader
+const trader = kandaDatabase.find(t => t.traderId === traderId);
+
+const content = document.getElementById("content");
+
+if (!trader) {
+  content.innerHTML = "<p>माहिती सापडली नाही</p>";
+} else {
+  let html = `
+    <h3>व्यापारी: ${trader.traderName}</h3>
+    <p>एकूण माल: ${trader.quantity}</p>
+    <hr>
+    <h3>शेतकरी यादी</h3>
+  `;
+
+  trader.farmers.forEach((farmer, index) => {
+    html += `
+      <div style="background:white;padding:10px;
+        border-radius:8px;margin-bottom:10px;">
+        <b>${index + 1}. ${farmer.name}</b><br>
+        गाव: ${farmer.village}<br>
+        मोबाईल: ${farmer.mobile}
+      </div>
+    `;
+  });
+
+  content.innerHTML = html;
+}
+</script>
+
+</body>
+</html>
