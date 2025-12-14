@@ -8,6 +8,7 @@ const kandaDatabase = [
         farmerName: "राम पाटील",
         entries: [
           {
+            totalPacket: 5,
             vakkalNo: "VK101",
             weight: 250,
             rate: 1200,
@@ -15,6 +16,7 @@ const kandaDatabase = [
             buyerRate: 1250
           },
           {
+            totalPacket: 5,
             vakkalNo: "VK102",
             weight: 260,
             rate: 1180,
@@ -27,6 +29,7 @@ const kandaDatabase = [
         farmerName: "सुरेश देशमुख",
         entries: [
           {
+            totalPacket: 4,
             vakkalNo: "VK201",
             weight: 200,
             rate: 1150,
