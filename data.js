@@ -5,28 +5,22 @@ const kandaDatabase = [
     quantity: 20,
     farmers: [
       {
-        farmerId: 101,
-        name: "राम पाटील",
-        village: "बार्शी",
-        mobile: "9876543210",
-        bill: {
-          crop: "कांदा",
-          quantity: 10,
-          rate: 1200,
-          commission: 50
-        }
+        farmerName: "राम पाटील",
+        totalPacket: 10,
+        vakkalNo: "VK101",
+        weight: 500,
+        rate: 1200,
+        buyerName: "ABC Traders",
+        buyerRate: 1250
       },
       {
-        farmerId: 102,
-        name: "सुरेश देशमुख",
-        village: "मोहोळ",
-        mobile: "9123456780",
-        bill: {
-          crop: "कांदा",
-          quantity: 10,
-          rate: 1150,
-          commission: 50
-        }
+        farmerName: "सुरेश देशमुख",
+        totalPacket: 8,
+        vakkalNo: "VK102",
+        weight: 420,
+        rate: 1150,
+        buyerName: "XYZ Traders",
+        buyerRate: 1180
       }
     ]
   }
