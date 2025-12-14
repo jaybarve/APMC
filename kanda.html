@@ -5,40 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="font-family:Arial; background:#f4f6f8; margin:0;">
+<body style="margin:0; font-family:Arial, sans-serif; background:#f4f6f8;">
 
-<h2 style="background:#2e7d32; color:white; padding:15px; text-align:center;">
+<!-- Header -->
+<div style="background:#2e7d32; color:white; padding:16px; text-align:center; font-size:22px;">
   कांदा विभाग
-</h2>
+</div>
 
-<div style="padding:15px; background:white; margin:15px; border-radius:10px;">
-  <table style="width:100%; border-collapse:collapse;">
-    <tr style="background:#eee;">
-      <th>अनु.क्र</th>
-      <th>व्यापारी नाव</th>
-      <th>माल प्रमाण</th>
-      <th>Show</th>
-    </tr>
-    <tbody id="tableBody"></tbody>
-  </table>
+<!-- Table -->
+<div style="padding:15px;">
+  <div style="background:white; border-radius:12px; padding:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15); overflow-x:auto;">
+    
+    <table style="width:100%; border-collapse:collapse; min-width:500px;">
+      <thead>
+        <tr style="background:#f0f0f0;">
+          <th style="padding:10px;">अनु. क्र.</th>
+          <th style="padding:10px;">व्यापारी नाव</th>
+          <th style="padding:10px;">माल प्रमाण</th>
+          <th style="padding:10px;">Show</th>
+        </tr>
+      </thead>
+
+      <tbody id="tableBody">
+        <!-- Auto generated -->
+      </tbody>
+    </table>
+
+  </div>
 </div>
 
 <!-- DATABASE -->
 <script src="data.js"></script>
 
+<!-- PAGE LOGIC -->
 <script>
 const tableBody = document.getElementById("tableBody");
 
 kandaDatabase.forEach((trader, index) => {
   tableBody.innerHTML += `
     <tr>
-      <td>${index + 1}</td>
-      <td>${trader.traderName}</td>
-      <td>${trader.quantity}</td>
-      <td>
+      <td style="padding:10px; text-align:center;">${index + 1}</td>
+      <td style="padding:10px;">${trader.traderName}</td>
+      <td style="padding:10px; text-align:center;">${trader.quantity}</td>
+      <td style="padding:10px; text-align:center;">
         <a href="farmer.html?id=${trader.traderId}"
-           style="background:#2e7d32;color:white;padding:6px 10px;
-           border-radius:5px;text-decoration:none;">
+           style="background:#2e7d32; color:white; padding:6px 12px;
+           border-radius:6px; text-decoration:none;">
            Click Here
         </a>
       </td>
