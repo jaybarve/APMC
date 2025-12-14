@@ -1,93 +1,51 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-    <title>कांदा विभाग | कृषी उत्पन्न बाजार समिती सोलापूर</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>कांदा विभाग</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="margin:0; font-family:Arial, sans-serif; background:#f4f6f8;">
+<body style="font-family:Arial; background:#f4f6f8; margin:0;">
 
-    <!-- Header -->
-    <div style="
-        background:#2e7d32;
-        color:white;
-        padding:16px;
-        text-align:center;
-        font-size:22px;
-        font-weight:bold;
-    ">
-        कांदा विभाग
-    </div>
+<h2 style="background:#2e7d32; color:white; padding:15px; text-align:center;">
+  कांदा विभाग
+</h2>
 
-    <!-- Table Section -->
-    <div style="padding:15px;">
+<div style="padding:15px; background:white; margin:15px; border-radius:10px;">
+  <table style="width:100%; border-collapse:collapse;">
+    <tr style="background:#eee;">
+      <th>अनु.क्र</th>
+      <th>व्यापारी नाव</th>
+      <th>माल प्रमाण</th>
+      <th>Show</th>
+    </tr>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
 
-        <div style="
-            overflow-x:auto;
-            background:white;
-            border-radius:12px;
-            box-shadow:0 4px 12px rgba(0,0,0,0.15);
-        ">
+<!-- DATABASE -->
+<script src="data.js"></script>
 
-            <table style="
-                width:100%;
-                border-collapse:collapse;
-                min-width:500px;
-            ">
-                <thead>
-                    <tr style="background:#f0f0f0;">
-                        <th style="padding:12px;">अनु. क्र.</th>
-                        <th style="padding:12px;">व्यापारी नाव</th>
-                        <th style="padding:12px;">माल प्रमाण</th>
-                        <th style="padding:12px;">Show</th>
-                    </tr>
-                </thead>
+<script>
+const tableBody = document.getElementById("tableBody");
 
-                <tbody id="tableBody">
-                    <!-- Rows will auto-generate here -->
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-
-    <!-- SCRIPT -->
-    <script>
-        // 🔹 ONLY EDIT DATA HERE 🔹
-        const kandaData = [
-            { name: "Jay Barve", quantity: 20 },
-            { name: "ABC Traders", quantity: 35 },
-            { name: "Shree Ganesh Traders", quantity: 50 }
-        ];
-
-        const tableBody = document.getElementById("tableBody");
-
-        kandaData.forEach((item, index) => {
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-                <td style="padding:12px; text-align:center;">${index + 1}</td>
-                <td style="padding:12px;">${item.name}</td>
-                <td style="padding:12px; text-align:center;">${item.quantity}</td>
-                <td style="padding:12px; text-align:center;">
-                    <button
-                        style="
-                            padding:6px 14px;
-                            background:#2e7d32;
-                            color:white;
-                            border:none;
-                            border-radius:6px;
-                            cursor:pointer;
-                        "
-                        onclick="alert('${item.name} - माल प्रमाण: ${item.quantity}')">
-                        Click Here
-                    </button>
-                </td>
-            `;
-
-            tableBody.appendChild(row);
-        });
-    </script>
+kandaDatabase.forEach((trader, index) => {
+  tableBody.innerHTML += `
+    <tr>
+      <td>${index + 1}</td>
+      <td>${trader.traderName}</td>
+      <td>${trader.quantity}</td>
+      <td>
+        <a href="farmer.html?id=${trader.traderId}"
+           style="background:#2e7d32;color:white;padding:6px 10px;
+           border-radius:5px;text-decoration:none;">
+           Click Here
+        </a>
+      </td>
+    </tr>
+  `;
+});
+</script>
 
 </body>
 </html>
