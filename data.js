@@ -6,35 +6,28 @@ const kandaDatabase = [
     farmers: [
       {
         farmerName: "राम पाटील",
-        entries: [
+        vakkalNo: "VK101",
+        records: [
           {
-            totalPacket: 5,
-            vakkalNo: "VK101",
-            weight: 250,
+            weight: 120,
+            pishavi: 3,
             rate: 1200,
             buyerName: "ABC Traders",
             buyerRate: 1250
           },
           {
-            totalPacket: 5,
-            vakkalNo: "VK102",
-            weight: 260,
+            weight: 130,
+            pishavi: 4,
             rate: 1180,
             buyerName: "XYZ Traders",
             buyerRate: 1220
-          }
-        ]
-      },
-      {
-        farmerName: "सुरेश देशमुख",
-        entries: [
+          },
           {
-            totalPacket: 4,
-            vakkalNo: "VK201",
-            weight: 200,
-            rate: 1150,
-            buyerName: "LMN Traders",
-            buyerRate: 1180
+            weight: 110,
+            pishavi: 6,
+            rate: 1190,
+            buyerName: "PQR Traders",
+            buyerRate: 1210
           }
         ]
       }
