@@ -5,52 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="margin:0; font-family:Arial, sans-serif; background:#f4f6f8;">
+<body style="margin:0; font-family:Arial; background:#f4f6f8;">
 
-<!-- Header -->
 <div style="background:#2e7d32; color:white; padding:16px; text-align:center; font-size:22px;">
   शेतकरी तपशील
 </div>
 
-<!-- Content -->
 <div id="content" style="padding:15px;"></div>
 
-<!-- DATABASE -->
 <script src="data.js"></script>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const traderId = parseInt(params.get("id"));
-
 const trader = kandaDatabase.find(t => t.traderId === traderId);
+
 const content = document.getElementById("content");
 
-if (!trader) {
-  content.innerHTML = "<p>माहिती सापडली नाही</p>";
-} else {
-  let html = `
-    <div style="background:white; padding:15px; border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.15); margin-bottom:15px;">
-      <h3>व्यापारी: ${trader.traderName}</h3>
-      <p>एकूण माल: ${trader.quantity}</p>
+let html = `
+  <div style="background:white; padding:15px; border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15); margin-bottom:15px;">
+    <h3>व्यापारी: ${trader.traderName}</h3>
+    <p>एकूण माल: ${trader.quantity}</p>
+  </div>
+  <h3>शेतकरी यादी</h3>
+`;
+
+trader.farmers.forEach((farmer, index) => {
+  html += `
+    <div style="background:white; padding:12px; border-radius:10px;
+      margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+      
+      <b>${index + 1}. ${farmer.name}</b><br>
+      गाव: ${farmer.village}<br>
+      मोबाईल: ${farmer.mobile}<br><br>
+
+      <a href="bill.html?tid=${trader.traderId}&fid=${farmer.farmerId}"
+        style="background:#2e7d32; color:white; padding:6px 14px;
+        border-radius:6px; text-decoration:none;">
+        Bill पहा
+      </a>
     </div>
-
-    <h3>शेतकरी यादी</h3>
   `;
+});
 
-  trader.farmers.forEach((farmer, index) => {
-    html += `
-      <div style="background:white; padding:12px; border-radius:10px;
-        margin-bottom:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-        <b>${index + 1}. ${farmer.name}</b><br>
-        गाव: ${farmer.village}<br>
-        मोबाईल: ${farmer.mobile}
-      </div>
-    `;
-  });
-
-  content.innerHTML = html;
-}
+content.innerHTML = html;
 </script>
 
 </body>
