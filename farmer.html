@@ -7,12 +7,15 @@
 
 <body style="margin:0; font-family:Arial; background:#f4f6f8;">
 
+<!-- Header -->
 <div style="background:#2e7d32; color:white; padding:16px; text-align:center; font-size:22px;">
   शेतकरी तपशील
 </div>
 
+<!-- Content -->
 <div id="content" style="padding:15px;"></div>
 
+<!-- DATABASE -->
 <script src="data.js"></script>
 
 <script>
@@ -28,6 +31,7 @@ let html = `
     <h3>व्यापारी: ${trader.traderName}</h3>
     <p>एकूण माल: ${trader.quantity}</p>
   </div>
+
   <h3>शेतकरी यादी</h3>
 `;
 
@@ -36,9 +40,7 @@ trader.farmers.forEach((farmer, index) => {
     <div style="background:white; padding:12px; border-radius:10px;
       margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
       
-      <b>${index + 1}. ${farmer.name}</b><br>
-      गाव: ${farmer.village}<br>
-      मोबाईल: ${farmer.mobile}<br><br>
+      <b>${index + 1}. ${farmer.name}</b><br><br>
 
       <a href="bill.html?tid=${trader.traderId}&fid=${farmer.farmerId}"
         style="background:#2e7d32; color:white; padding:6px 14px;
